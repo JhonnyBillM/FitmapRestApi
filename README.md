@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Perfect JSON API Example [简体中文](README.zh_CN.md)
 
 <p align="center">
@@ -116,3 +117,6 @@ A comprehensive list of open issues can be found at [http://jira.perfect.org:808
 
 ## Further Information
 For more information on the Perfect project, please visit [perfect.org](http://perfect.org).
+=======
+# FitmapRestApi
+>>>>>>> a4f6944c2fd41a62e82e3bf5573867d82052ebe5
