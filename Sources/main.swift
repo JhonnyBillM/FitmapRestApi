@@ -40,51 +40,157 @@ routes.add(method: .get, uri: "/", handler: {
 	}
 )
 
+/*
+----------------------------------------------------------------------------------
+                     				USERS ROUTES 
+----------------------------------------------------------------------------------
+*/
 
 // Adding a route to handle the GET people list URL
-routes.add(method: .get, uri: "/api/v1/people", handler: {
+routes.add(method: .get, uri: "/api/v1/users", handler: {
 	request, response in
 
-	let people = People()
-
+	let user = Users()
+	user.fetchUsers()
 	// Setting the response content type explicitly to application/json
 	response.setHeader(.contentType, value: "application/json")
 	// Setting the body response to the JSON list generated
-	response.appendBody(string: people.list())
+	response.appendBody(string: user.list())
 	// Signalling that the request is completed
 	response.completed()
 	}
 )
 
 // Adding a route to handle the POST people add URL, with post body params
-routes.add(method: .post, uri: "/api/v1/people", handler: {
+routes.add(method: .post, uri: "/api/v1/users", handler: {
 	request, response in
 
-	let people = People()
+	//let people = People()
+	let user = Users()
+	user.insertUser()
+
 
 	// Setting the response content type explicitly to application/json
 	response.setHeader(.contentType, value: "application/json")
-	// Adding a new "person", passing the complete HTTPRequest object to the function.
-	response.appendBody(string: people.add(request))
+
+	// // Adding a new "person", passing the complete HTTPRequest object to the function.
+	//response.appendBody(string: user.add(request))
 	// Signalling that the request is completed
 	response.completed()
 	}
 )
 
-// Adding a route to handle the POST people add via JSON
-routes.add(method: .post, uri: "/api/v1/people/json", handler: {
+/*
+----------------------------------------------------------------------------------
+                     				FITMAP ROUTES ROUTES 
+----------------------------------------------------------------------------------
+*/
+
+
+// Adding a route to handle the GET people list URL
+routes.add(method: .get, uri: "/api/v1/routes", handler: {
 	request, response in
 
-	let people = People()
-
+	let routee = Routess()
+	routee.fetchRoutes()
 	// Setting the response content type explicitly to application/json
 	response.setHeader(.contentType, value: "application/json")
-	// Adding a new "person", passing the just the request's post body as a raw string to the function.
-	response.appendBody(string: people.add(request.postBodyString!))
+	// Setting the body response to the JSON list generated
+	response.appendBody(string: routee.list())
 	// Signalling that the request is completed
 	response.completed()
 	}
 )
+
+// Adding a route to handle the POST people add URL, with post body params
+routes.add(method: .post, uri: "/api/v1/routes", handler: {
+	request, response in
+
+	//let people = People()
+	let routee = Routess()
+	routee.insertRoute()
+
+
+	// Setting the response content type explicitly to application/json
+	response.setHeader(.contentType, value: "application/json")
+
+	// // Adding a new "person", passing the complete HTTPRequest object to the function.
+	//response.appendBody(string: user.add(request))
+	// Signalling that the request is completed
+	response.completed()
+	}
+)
+
+/*
+----------------------------------------------------------------------------------
+                     				POINTS ROUTES 
+----------------------------------------------------------------------------------
+*/
+// Adding a route to handle the GET people list URL
+routes.add(method: .get, uri: "/api/v1/points", handler: {
+	request, response in
+
+	let point = Points()
+	point.fetchPoints()
+	// Setting the response content type explicitly to application/json
+	response.setHeader(.contentType, value: "application/json")
+	// Setting the body response to the JSON list generated
+	response.appendBody(string: point.list())
+	// Signalling that the request is completed
+	response.completed()
+	}
+)
+
+// Adding a route to handle the POST people add URL, with post body params
+routes.add(method: .post, uri: "/api/v1/points", handler: {
+	request, response in
+
+	//let people = People()
+	let point = Points()
+	point.insertPoint()
+
+
+	// Setting the response content type explicitly to application/json
+	response.setHeader(.contentType, value: "application/json")
+
+	// // Adding a new "person", passing the complete HTTPRequest object to the function.
+	//response.appendBody(string: user.add(request))
+	// Signalling that the request is completed
+	response.completed()
+	}
+)
+
+/*
+----------------------------------------------------------------------------------
+                     				HISTORIES ROUTES 
+----------------------------------------------------------------------------------
+*/
+
+/*
+----------------------------------------------------------------------------------
+                     				USERS ROUTES 
+----------------------------------------------------------------------------------
+*/
+
+/*
+----------------------------------------------------------------------------------
+                     				USERS ROUTES 
+----------------------------------------------------------------------------------
+*/
+
+// // Adding a route to handle the POST people add via JSON
+// routes.add(method: .post, uri: "/api/v1/people/json", handler: {
+// 	request, response in
+
+// 	let people = People()
+// 	// Setting the response content type explicitly to application/json
+// 	response.setHeader(.contentType, value: "application/json")
+// 	// Adding a new "person", passing the just the request's post body as a raw string to the function.
+// 	response.appendBody(string: people.add(request.postBodyString!))
+// 	// Signalling that the request is completed
+// 	response.completed()
+// 	}
+// )
 
 
 
