@@ -9,7 +9,11 @@ public class Points {
     let testDB = "fitmap"
     var mysql: MySQL!
     
+  
+	// Container for array of type Person
+	var data = [Point]()
 
+	// Populating with a mock data object
 	init(){
         mysql = MySQL() // Create an instance of MySQL to work with
         
@@ -31,17 +35,15 @@ public class Points {
 	// Accepts the HTTPRequest object and adds a new Person from post params.
 	public func add(_ request: HTTPRequest) -> String {
 		let new = Point(
-
-			idPoint: request.param(name: "idPoint")!,
 			idRoute: request.param(name: "idRoute")!,
 			longitude: request.param(name: "longitude")!,
 			latitude: request.param(name: "latitude")!
 
 		)
-				
+
 		do{
 			_ = mysql.connect()
-		let query = "INSERT INTO user (name,lastName) VALUES('\(new.firstName)','\(new.lastName)')"
+		let query = "INSERT INTO user (name,lastName) VALUES('','')"
 
 		 _ = mysql.query(statement: query)
 		print(query)
@@ -53,8 +55,10 @@ public class Points {
         }
 		
 
+		data.append(new)
 		return toString()
 	}
+
 
     func fetchPoints() {
         _ = mysql.connect()
@@ -73,7 +77,7 @@ public class Points {
 
             let point = Point(idRoute: idRoute, longitude: longitude, latitude: latitude)
             point.idPoint = idPoint
-
+            data.append(point)
         })
         
         defer {

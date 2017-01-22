@@ -106,14 +106,12 @@ routes.add(method: .post, uri: "/api/v1/routes", handler: {
 
 	//let people = People()
 	let routee = Routess()
-	routee.insertRoute()
-
 
 	// Setting the response content type explicitly to application/json
 	response.setHeader(.contentType, value: "application/json")
 
 	// // Adding a new "person", passing the complete HTTPRequest object to the function.
-	//response.appendBody(string: user.add(request))
+	response.appendBody(string: routee.add(request))
 	// Signalling that the request is completed
 	response.completed()
 	}
@@ -145,14 +143,12 @@ routes.add(method: .post, uri: "/api/v1/points", handler: {
 
 	//let people = People()
 	let point = Points()
-	point.insertPoint()
-
 
 	// Setting the response content type explicitly to application/json
 	response.setHeader(.contentType, value: "application/json")
 
 	// // Adding a new "person", passing the complete HTTPRequest object to the function.
-	//response.appendBody(string: user.add(request))
+	response.appendBody(string: point.add(request))
 	// Signalling that the request is completed
 	response.completed()
 	}

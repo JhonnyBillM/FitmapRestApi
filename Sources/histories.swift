@@ -8,6 +8,10 @@ public class Histories {
     let testPassword = ""
     let testDB = "fitmap"
     var mysql: MySQL!
+    
+  
+	// Container for array of type Person
+	var data = [History]()
 
 	// Populating with a mock data object
 	init(){
@@ -31,16 +35,14 @@ public class Histories {
 	// Accepts the HTTPRequest object and adds a new Person from post params.
 	public func add(_ request: HTTPRequest) -> String {
 		let new = History(
-
 			idRoute: request.param(name: "idRoute")!,
 			idUser: request.param(name: "idUser")!,
 			date: request.param(name: "date")!,
 			time: request.param(name: "time")!
 		)
-						
-		do{
+				do{
 			_ = mysql.connect()
-		let query = "INSERT INTO user (name,lastName) VALUES('\(new.firstName)','\(new.lastName)')"
+		let query = "INSERT INTO user (name,lastName) VALUES('','')"
 
 		 _ = mysql.query(statement: query)
 		print(query)
@@ -50,8 +52,8 @@ public class Histories {
 		defer {
           mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
         }
+		data.append(new)
 		return toString()
-
 	}
 
     func fetchHistories() {
@@ -70,7 +72,8 @@ public class Histories {
             let date = row[3] ?? ""
             let time = row[4] ?? ""
 
-            let history = History(idHistory: idHistory, idRoute: idRoute, idUser: idUser, date: date, time: time)
+            let history = History(idRoute: idRoute, idUser: idUser, date: date, time: time)
+            history.idHistory = idHistory
 		    data.append(history)
         })
         

@@ -9,6 +9,11 @@ public class Reviews {
     let testDB = "fitmap"
     var mysql: MySQL!
     
+  
+	// Container for array of type Person
+	var data = [Review]()
+
+	// Populating with a mock data object
 	init(){
         mysql = MySQL() // Create an instance of MySQL to work with
         
@@ -39,11 +44,10 @@ public class Reviews {
 			time: request.param(name: "time")!
 
 		)
-		//Query para insertar en Reviews
-		
+
 		do{
 			_ = mysql.connect()
-		let query = "INSERT INTO user (name,lastName) VALUES('\(new.firstName)','\(new.lastName)')"
+		let query = "INSERT INTO user (name,lastName) VALUES('','')"
 
 		 _ = mysql.query(statement: query)
 		print(query)
@@ -54,7 +58,7 @@ public class Reviews {
           mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
         }
 		
-
+		data.append(new)
 		return toString()
 	}
 
@@ -83,7 +87,6 @@ public class Reviews {
           mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
         }
     }
-
 
 	// Convenient encoding method that returns a string from JSON objects.
 	private func toString() -> String {

@@ -8,6 +8,10 @@ public class Routess {
     let testPassword = ""
     let testDB = "fitmap"
     var mysql: MySQL!
+    
+  
+	// Container for array of type Person
+	var data = [Route]()
 
 	// Populating with a mock data object
 	init(){
@@ -31,7 +35,6 @@ public class Routess {
 	// Accepts the HTTPRequest object and adds a new Person from post params.
 	public func add(_ request: HTTPRequest) -> String {
 		let new = Route(
-
 			idUser: request.param(name: "idUser")!,
 			name: request.param(name: "name")!,
 			time: request.param(name: "time")!,
@@ -39,23 +42,21 @@ public class Routess {
 			comment: request.param(name: "comment")!,
 			discipline: request.param(name: "discipline")!
 		)
-
-		do{
+				do{
 			_ = mysql.connect()
-		let query = "INSERT INTO user (name,lastName) VALUES('\(new.firstName)','\(new.lastName)')"
+		let query = "INSERT INTO user (name,lastName) VALUES('','')"
 
 		 _ = mysql.query(statement: query)
 		print(query)
-
+		data.append(new)
 		}
 
 		defer {
           mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
         }
+
 		return toString()
 	}
-
-
     func fetchRoutes() {
         _ = mysql.connect()
         
@@ -76,16 +77,15 @@ public class Routess {
 
 
             
-            let routee = Route(idUser: idUser, name: name, time: time, rating: rating, comment: comment, discipline: discipline)
-            routee.idRoute = idRoute
-            data.append(routee)
+            let route = Route(idUser: idUser, name: name, time: time, rating: rating, comment: comment, discipline: discipline)
+            route.idRoute = idRoute
+            data.append(route)
         })
         
         defer {
           mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
         }
     }
-
 
 	// Convenient encoding method that returns a string from JSON objects.
 	private func toString() -> String {
