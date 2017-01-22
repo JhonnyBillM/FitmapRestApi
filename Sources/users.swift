@@ -54,10 +54,10 @@ public class Users {
 		return toString()
 	}
 
-    func fetchUsers() {
+    func fetchUserFirstTime() {
         _ = mysql.connect()
         
-        let query = "SELECT iduser, name, lastname FROM user"
+        let query = "SELECT iduser, name, lastname FROM user ORDER BY iduser, name, lastname DESC LIMIT 1"
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()

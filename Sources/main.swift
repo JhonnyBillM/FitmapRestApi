@@ -51,7 +51,7 @@ routes.add(method: .get, uri: "/api/v1/users", handler: {
 	request, response in
 
 	let user = Users()
-	user.fetchUsers()
+	user.fetchUserFirstTime()
 	// Setting the response content type explicitly to application/json
 	response.setHeader(.contentType, value: "application/json")
 	// Setting the body response to the JSON list generated
@@ -95,6 +95,22 @@ routes.add(method: .get, uri: "/api/v1/routes", handler: {
 	response.setHeader(.contentType, value: "application/json")
 	// Setting the body response to the JSON list generated
 	response.appendBody(string: routee.list())
+	// Signalling that the request is completed
+	response.completed()
+	}
+)
+// Adding a route to handle the POST people add URL, with post body params
+routes.add(method: .post, uri: "/api/v1/routesUnique", handler: {
+	request, response in
+
+	//let people = People()
+	let routee = Routess()
+
+	// Setting the response content type explicitly to application/json
+	response.setHeader(.contentType, value: "application/json")
+
+	// // Adding a new "person", passing the complete HTTPRequest object to the function.
+	response.appendBody(string: routee.add(request))
 	// Signalling that the request is completed
 	response.completed()
 	}

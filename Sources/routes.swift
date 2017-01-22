@@ -26,7 +26,6 @@ public class Routess {
         }
 	}
 
-	// A simple JSON encoding function for listing data members.
 	// Ordinarily in an API list directive, cursor commands would be included.
 	public func list() -> String {
 		return toString()
@@ -44,7 +43,7 @@ public class Routess {
 		)
 				do{
 			_ = mysql.connect()
-		let query = "INSERT INTO user (name,lastName) VALUES('','')"
+		let query = "INSERT INTO user (idUser, name, time, rating, comment, discipline) VALUES('\(new.idUser)','\(new.name)','\(new.time)','\(new.rating)','\(new.comment)', '\(new.discipline)')"
 
 		 _ = mysql.query(statement: query)
 		print(query)
@@ -57,10 +56,11 @@ public class Routess {
 
 		return toString()
 	}
+
     func fetchRoutes() {
         _ = mysql.connect()
         
-        let query = "SELECT first_name, last_name, email, employee_id FROM employees"
+        let query = "SELECT idroute, iduser, name, time, rating, comment, discipline FROM route"
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()
@@ -85,6 +85,37 @@ public class Routess {
         defer {
           mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
         }
+    }
+
+    func fetchRouteUnique(_ request: HTTPRequest){
+    	_ = mysql.connect()
+        let routeid = request.param(name: "idRoute")!
+        let query = "SELECT idroute, iduser, name, time, rating, comment, discipline FROM route WHERE routeid = '\(routeid)'"
+        _ = mysql.query(statement: query)
+        print(query)
+        let results = mysql.storeResults()
+        
+        results?.forEachRow(callback: { (row) in
+
+			let idRoute = row[0] ?? ""
+            let idUser = row[1] ?? ""
+            let name = row[2] ?? ""
+            let time = row[3] ?? ""
+            let rating = row[4] ?? ""
+            let comment = row[5] ?? ""
+            let discipline = row[6] ?? ""
+
+
+            
+            let route = Route(idUser: idUser, name: name, time: time, rating: rating, comment: comment, discipline: discipline)
+            route.idRoute = idRoute
+            data.append(route)
+        })
+        
+        defer {
+          mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
+        }
+
     }
 
 	// Convenient encoding method that returns a string from JSON objects.

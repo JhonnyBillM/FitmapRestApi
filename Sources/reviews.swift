@@ -47,7 +47,7 @@ public class Reviews {
 
 		do{
 			_ = mysql.connect()
-		let query = "INSERT INTO user (name,lastName) VALUES('','')"
+		let query = "INSERT INTO review (iduser, idroute, comment, rating, date, time) VALUES('\(new.idUser)','\(new.idRoute)','\(new.comment)','\(new.rating)','\(new.date)','\(new.time)')"
 
 		 _ = mysql.query(statement: query)
 		print(query)
@@ -65,7 +65,7 @@ public class Reviews {
     func fetchReviews() {
         _ = mysql.connect()
         
-        let query = "SELECT first_name, last_name, email, employee_id FROM employees"
+        let query = "SELECT iduser, idroute, comment, rating, date, time FROM review"
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()
