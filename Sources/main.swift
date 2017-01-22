@@ -42,7 +42,7 @@ routes.add(method: .get, uri: "/", handler: {
 
 /*
 ----------------------------------------------------------------------------------
-                     				USERS ROUTES 
+                     				USERS USERS
 ----------------------------------------------------------------------------------
 */
 
@@ -67,14 +67,12 @@ routes.add(method: .post, uri: "/api/v1/users", handler: {
 
 	//let people = People()
 	let user = Users()
-	user.insertUser()
-
 
 	// Setting the response content type explicitly to application/json
 	response.setHeader(.contentType, value: "application/json")
 
 	// // Adding a new "person", passing the complete HTTPRequest object to the function.
-	//response.appendBody(string: user.add(request))
+	response.appendBody(string: user.add(request))
 	// Signalling that the request is completed
 	response.completed()
 	}

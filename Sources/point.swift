@@ -10,7 +10,7 @@ class Point: JSONConvertibleObject {
 	var latitude: String = ""
 
 	init(idPoint: String, idRoute: String, longitude: String, latitude: String) {
-		self.idPoint	= idPoint
+		self.idPoint	= ""
 		self.idRoute	= idRoute
 		self.longitude	= longitude
 		self.latitude		= latitude

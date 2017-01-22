@@ -9,11 +9,6 @@ public class Reviews {
     let testDB = "fitmap"
     var mysql: MySQL!
     
-  
-	// Container for array of type Person
-	var data = [Review]()
-
-	// Populating with a mock data object
 	init(){
         mysql = MySQL() // Create an instance of MySQL to work with
         
@@ -44,28 +39,22 @@ public class Reviews {
 			time: request.param(name: "time")!
 
 		)
-		data.append(new)
-		return toString()
-	}
+		//Query para insertar en Reviews
+		
+		do{
+			_ = mysql.connect()
+		let query = "INSERT INTO user (name,lastName) VALUES('\(new.firstName)','\(new.lastName)')"
 
-	// Accepts raw JSON string, to be converted to JSON and consumed.
-	public func add(_ json: String) -> String {
-		do {
-			let incoming = try json.jsonDecode() as! [String: String]
-			let new = Review(
+		 _ = mysql.query(statement: query)
+		print(query)
 
-				idUser: incoming["idUser"]!,
-				idRoute: incoming["idRoute"]!,
-				comment: incoming["comment"]!,
-				rating: incoming["rating"]!,
-				date: incoming["date"]!,
-				time: incoming["time"]!
-
-			)
-			data.append(new)
-		} catch {
-			return "ERROR"
 		}
+
+		defer {
+          mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
+        }
+		
+
 		return toString()
 	}
 
@@ -95,10 +84,7 @@ public class Reviews {
         }
     }
 
-    //Method for inserting routes
-	func insertReview(){
 
-	}
 	// Convenient encoding method that returns a string from JSON objects.
 	private func toString() -> String {
 		var out = [String]()

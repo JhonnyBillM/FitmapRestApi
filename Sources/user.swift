@@ -12,8 +12,8 @@ class User : JSONConvertibleObject {
 		return "\(firstName) \(lastName)"
 	}
 
-	init(idUser: String, firstName: String, lastName: String) {
-		self.idUser		= idUser
+	init(firstName: String, lastName: String) {
+		self.idUser		= ""
 		self.firstName	= firstName
 		self.lastName	= lastName
 

@@ -9,8 +9,8 @@ class History: JSONConvertibleObject {
 	var idUser: String = ""
 	var date: String = ""
 	var time: String = ""
-	init(idHistory: String, idRoute: String, idUser: String, date: String, time: String) {
-		self.idHistory	= idHistory
+	init(idRoute: String, idUser: String, date: String, time: String) {
+		self.idHistory	= ""
 		self.idRoute	= idRoute
 		self.idUser	= idUser
 		self.date		= date

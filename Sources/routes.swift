@@ -8,10 +8,6 @@ public class Routess {
     let testPassword = ""
     let testDB = "fitmap"
     var mysql: MySQL!
-    
-  
-	// Container for array of type Person
-	var data = [Route]()
 
 	// Populating with a mock data object
 	init(){
@@ -36,7 +32,6 @@ public class Routess {
 	public func add(_ request: HTTPRequest) -> String {
 		let new = Route(
 
-			idRoute: request.param(name: "idRoute")!,
 			idUser: request.param(name: "idUser")!,
 			name: request.param(name: "name")!,
 			time: request.param(name: "time")!,
@@ -44,29 +39,22 @@ public class Routess {
 			comment: request.param(name: "comment")!,
 			discipline: request.param(name: "discipline")!
 		)
-		data.append(new)
+
+		do{
+			_ = mysql.connect()
+		let query = "INSERT INTO user (name,lastName) VALUES('\(new.firstName)','\(new.lastName)')"
+
+		 _ = mysql.query(statement: query)
+		print(query)
+
+		}
+
+		defer {
+          mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
+        }
 		return toString()
 	}
 
-	// Accepts raw JSON string, to be converted to JSON and consumed.
-	public func add(_ json: String) -> String {
-		do {
-			let incoming = try json.jsonDecode() as! [String: String]
-			let new = Route(
-				idRoute: incoming["idRoute"]!,
-				idUser: incoming["idUser"]!,
-				name: incoming["name"]!,
-				time: incoming["time"]!,
-				rating: incoming["rating"]!,
-				comment: incoming["comment"]!,
-				discipline: incoming["discipline"]!
-			)
-			data.append(new)
-		} catch {
-			return "ERROR"
-		}
-		return toString()
-	}
 
     func fetchRoutes() {
         _ = mysql.connect()
@@ -88,8 +76,9 @@ public class Routess {
 
 
             
-            let route = Route(idRoute: idRoute, idUser: idUser, name: name, time: time, rating: rating, comment: comment, discipline: discipline)
-            data.append(route)
+            let routee = Route(idUser: idUser, name: name, time: time, rating: rating, comment: comment, discipline: discipline)
+            routee.idRoute = idRoute
+            data.append(routee)
         })
         
         defer {
@@ -97,10 +86,7 @@ public class Routess {
         }
     }
 
-    //Method for inserting routes
-	func insertRoute(){
 
-	}
 	// Convenient encoding method that returns a string from JSON objects.
 	private func toString() -> String {
 		var out = [String]()

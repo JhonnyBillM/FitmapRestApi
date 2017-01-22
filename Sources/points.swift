@@ -9,11 +9,7 @@ public class Points {
     let testDB = "fitmap"
     var mysql: MySQL!
     
-  
-	// Container for array of type Person
-	var data = [Point]()
 
-	// Populating with a mock data object
 	init(){
         mysql = MySQL() // Create an instance of MySQL to work with
         
@@ -42,26 +38,21 @@ public class Points {
 			latitude: request.param(name: "latitude")!
 
 		)
-		data.append(new)
-		return toString()
-	}
+				
+		do{
+			_ = mysql.connect()
+		let query = "INSERT INTO user (name,lastName) VALUES('\(new.firstName)','\(new.lastName)')"
 
-	// Accepts raw JSON string, to be converted to JSON and consumed.
-	public func add(_ json: String) -> String {
-		do {
-			let incoming = try json.jsonDecode() as! [String: String]
-			let new = Point(
+		 _ = mysql.query(statement: query)
+		print(query)
 
-				idPoint: incoming["idPoint"]!,
-				idRoute: incoming["idRoute"]!,
-				longitude: incoming["longitude"]!,
-				latitude: incoming["latitude"]!
-
-			)
-			data.append(new)
-		} catch {
-			return "ERROR"
 		}
+
+		defer {
+          mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
+        }
+		
+
 		return toString()
 	}
 
@@ -80,8 +71,9 @@ public class Points {
             let longitude = row[2] ?? ""
             let latitude = row[3] ?? ""
 
-            let point = Point(idPoint: idPoint, idRoute: idRoute, longitude: longitude, latitude: latitude)
-            data.append(point)
+            let point = Point(idRoute: idRoute, longitude: longitude, latitude: latitude)
+            point.idPoint = idPoint
+
         })
         
         defer {
@@ -89,10 +81,6 @@ public class Points {
         }
     }
 
-    //Method for inserting points
-	func insertPoint(){
-
-	}
 	// Convenient encoding method that returns a string from JSON objects.
 	private func toString() -> String {
 		var out = [String]()

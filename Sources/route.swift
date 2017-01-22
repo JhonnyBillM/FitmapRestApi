@@ -12,8 +12,8 @@ class Route : JSONConvertibleObject {
 	var comment: String = ""
 	var discipline: String = ""
 
-	init(idRoute: String, idUser: String, name: String, time: String, rating: String, comment: String, discipline: String) {
-		self.idRoute	= idRoute
+	init(idUser: String, name: String, time: String, rating: String, comment: String, discipline: String) {
+		self.idRoute	= ""
 		self.idUser		= idUser
 		self.name		= name
 		self.time		= time
