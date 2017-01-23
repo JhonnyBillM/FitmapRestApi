@@ -75,7 +75,10 @@ public class Routess {
         let results = mysql.storeResults()
         results?.forEachRow(callback: {(row) in
             that = row[0] ?? ""})
-
+        
+        defer{
+            mysql.close()
+        }
 		return that
 	}
 
