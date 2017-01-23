@@ -12,7 +12,7 @@ public class Points {
   
 	// Container for array of type Person
 	var data = [Point]()
-	var latlong = [LatLong]()
+	var latlong = [String]()
 	// Populating with a mock data object
 	init(){
         mysql = MySQL() // Create an instance of MySQL to work with
@@ -76,7 +76,7 @@ public class Points {
             let longitude = row[0] ?? ""
             let latitude = row[1] ?? ""
 
-            let point = LatLong(longitude: longitude, latitude: latitude)
+            let point = "\(longitude)" + "," + "\(latitude)"
             latlong.append(point)
         })
         
