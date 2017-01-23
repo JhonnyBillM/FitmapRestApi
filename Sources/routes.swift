@@ -13,6 +13,7 @@ public class Routess {
 	// Container for array of type Person
 	var data = [Route]()
     var dataID = [Int]()
+    var info = [String]()
     var that = ""
 
 	// Populating with a mock data object
@@ -38,6 +39,10 @@ public class Routess {
 
     public func giveMeOneRoute() -> String{
         return that
+    }
+
+    public func giveMeThatInfo() -> String{
+        return info
     }
 
 	// Accepts the HTTPRequest object and adds a new Person from post params.
@@ -142,6 +147,28 @@ public class Routess {
 
         results?.forEachRow(callback: {(row) in
             that = row[0] ?? ""})
+        //that = results
+        
+        
+        defer {
+          mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
+        }
+
+    }
+
+    func fetchRouteData(_ request: HTTPRequest){
+        _ = mysql.connect()
+        let idRoute = request.param(name: "idRoute")
+        let query = "SELECT name, time, rating, discipline FROM ROUTE WHERE idroute= '\(idRoute)'"
+        _ = mysql.query(statement: query)
+        print(query)
+        let results = mysql.storeResults()
+
+        results?.forEachRow(callback: {(row) in
+            info.add(row[0] ?? "")
+            info.add(row[1] ?? ""
+            info.add(row[2] ?? ""
+            info.add(row[3] ?? "")})
         //that = results
         
         

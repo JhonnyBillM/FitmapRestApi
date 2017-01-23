@@ -86,7 +86,7 @@ routes.add(method: .post, uri: "/api/v1/users", handler: {
 
 
 // Adding a route to handle the GET people list URL
-routes.add(method: .get, uri: "/api/v1/routes", handler: {
+routes.add(method: .get, uri: "	/api/v1/routes", handler: {
 	request, response in
 
 	let routee = Routess()
@@ -113,6 +113,20 @@ routes.add(method: .get, uri: "/api/v1/routes/unique", handler: {
 	response.completed()
 	}
 )
+routes.add(method: .get, uri: "/api/v1/routes/uniqueRoute", handler: {
+	request, response in
+
+	let routee = Routess()
+	routee.fetchRouteData(request)
+	// Setting the response content type explicitly to application/json
+	response.setHeader(.contentType, value: "application/json")
+	// Setting the body response to the JSON list generated
+	response.appendBody(string: routee.giveMeThatInfo())
+	// Signalling that the request is completed
+	response.completed()
+	}
+)
+
 
 
 routes.add(method: .get, uri: "/api/v1/routes/unique/id", handler: {
