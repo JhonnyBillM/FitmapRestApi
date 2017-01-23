@@ -13,7 +13,7 @@ public class Routess {
 	// Container for array of type Person
 	var data = [Route]()
     var dataID = [Int]()
-    var info = [String]()
+    var info = String()
     var that = ""
 
 	// Populating with a mock data object
@@ -163,14 +163,21 @@ public class Routess {
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()
-
+        var a = ""
+        var b = ""
+        var c = ""
+        var d = ""
         results?.forEachRow(callback: {(row) in
-            info.add(row[0] ?? "")
-            info.add(row[1] ?? ""
-            info.add(row[2] ?? ""
-            info.add(row[3] ?? "")})
+            a = row[0] ?? ""
+            b = row[1] ?? ""
+            c = row[2] ?? ""
+            d = row[3] ?? ""
+            })
         //that = results
-        
+            info.append(a)
+            info.append(b)
+            info.append(c)
+            info.append(d)
         
         defer {
           mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result

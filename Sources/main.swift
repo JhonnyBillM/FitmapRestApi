@@ -86,7 +86,7 @@ routes.add(method: .post, uri: "/api/v1/users", handler: {
 
 
 // Adding a route to handle the GET people list URL
-routes.add(method: .get, uri: "	/api/v1/routes", handler: {
+routes.add(method: .get, uri: "/api/v1/routes", handler: {
 	request, response in
 
 	let routee = Routess()
