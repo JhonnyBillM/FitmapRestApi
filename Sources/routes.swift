@@ -12,6 +12,7 @@ public class Routess {
   
 	// Container for array of type Person
 	var data = [Route]()
+    var dataID = [Int]()
     var that = ""
 
 	// Populating with a mock data object
@@ -31,6 +32,9 @@ public class Routess {
 	public func list() -> String {
 		return toString()
 	}
+    public func giveMeThoseID() -> String{
+        return singleToString()
+    }
 
     public func giveMeOneRoute() -> String{
         return that
@@ -105,6 +109,26 @@ public class Routess {
         }
     }
 
+    func fetchRoutesID() {
+        _ = mysql.connect()
+        
+        let query = "SELECT idroute FROM route"
+        _ = mysql.query(statement: query)
+        print(query)
+        let results = mysql.storeResults()
+        
+        results?.forEachRow(callback: { (row) in
+
+            let idRoute = row[0] ?? ""
+            
+            let routee = idRoute
+            dataID.append(Int(routee)!)
+        })
+        
+        defer {
+          mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
+        }
+    }
     func fetchRouteUnique(_ request: HTTPRequest){
     	_ = mysql.connect()
         let iduser = request.param(name: "idUser")!
@@ -125,6 +149,18 @@ public class Routess {
     }
 
 	// Convenient encoding method that returns a string from JSON objects.
+    private func singleToString() -> String{
+        var out = [String]()
+
+        for m in self.dataID {
+            do {
+                out.append(try m.jsonEncodedString())
+            } catch {
+                print(error)
+            }
+        }
+        return "[\(out.joined(separator: ","))]"
+    }
 	private func toString() -> String {
 		var out = [String]()
 

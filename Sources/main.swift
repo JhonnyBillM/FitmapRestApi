@@ -114,6 +114,22 @@ routes.add(method: .get, uri: "/api/v1/routes/unique", handler: {
 	}
 )
 
+
+routes.add(method: .get, uri: "/api/v1/routes/unique/id", handler: {
+	request, response in
+
+	let routee = Routess()
+	routee.fetchRoutesID()
+	// Setting the response content type explicitly to application/json
+	response.setHeader(.contentType, value: "application/json")
+	// Setting the body response to the JSON list generated
+	response.appendBody(string: routee.giveMeThoseID())
+	// Signalling that the request is completed
+	response.completed()
+	}
+)
+
+
 // Adding a route to handle the POST people add URL, with post body params
 routes.add(method: .post, uri: "/api/v1/routes", handler: {
 	request, response in
@@ -141,11 +157,11 @@ routes.add(method: .get, uri: "/api/v1/points", handler: {
 	request, response in
 
 	let point = Points()
-	point.fetchPoints()
+	point.fetchPoints(request)
 	// Setting the response content type explicitly to application/json
 	response.setHeader(.contentType, value: "application/json")
 	// Setting the body response to the JSON list generated
-	response.appendBody(string: point.list())
+	response.appendBody(string: point.listLatLong())
 	// Signalling that the request is completed
 	response.completed()
 	}

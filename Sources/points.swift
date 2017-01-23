@@ -12,7 +12,7 @@ public class Points {
   
 	// Container for array of type Person
 	var data = [Point]()
-
+	var latlong = [LatLong]()
 	// Populating with a mock data object
 	init(){
         mysql = MySQL() // Create an instance of MySQL to work with
@@ -30,6 +30,10 @@ public class Points {
 	// Ordinarily in an API list directive, cursor commands would be included.
 	public func list() -> String {
 		return toString()
+	}
+
+	public func listLatLong() -> String{
+		return toStringLatLong()
 	}
 
 	// Accepts the HTTPRequest object and adds a new Person from post params.
@@ -58,24 +62,22 @@ public class Points {
 	}
 
 
-    func fetchPoints() {
+    func fetchPoints(_ request: HTTPRequest) {
+    	let idRoute = request.param(name: "idRoute")!
         _ = mysql.connect()
         
-        let query = "SELECT idpoint, idroute, longitude, latitude FROM points ORDER BY idpoint"
+        let query = "SELECT longitude, latitude FROM points WHERE idroute = '\(idRoute)'ORDER BY idpoint"
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()
         
         results?.forEachRow(callback: { (row) in
 
-			let idPoint = row[0] ?? ""
-			let idRoute = row[1] ?? ""
-            let longitude = row[2] ?? ""
-            let latitude = row[3] ?? ""
+            let longitude = row[0] ?? ""
+            let latitude = row[1] ?? ""
 
-            let point = Point(idRoute: idRoute, longitude: longitude, latitude: latitude)
-            point.idPoint = idPoint
-            data.append(point)
+            let point = LatLong(longitude: longitude, latitude: latitude)
+            latlong.append(point)
         })
         
         defer {
@@ -84,6 +86,18 @@ public class Points {
     }
 
 	// Convenient encoding method that returns a string from JSON objects.
+	private func toStringLatLong() -> String{
+				var out = [String]()
+
+		for m in self.latlong {
+			do {
+				out.append(try m.jsonEncodedString())
+			} catch {
+				print(error)
+			}
+		}
+		return "[\(out.joined(separator: ","))]"
+	}
 	private func toString() -> String {
 		var out = [String]()
 
