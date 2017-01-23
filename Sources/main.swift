@@ -113,7 +113,7 @@ routes.add(method: .get, uri: "/api/v1/routes/unique", handler: {
 	response.completed()
 	}
 )
-routes.add(method: .get, uri: "/api/v1/routes/uniqueRoute", handler: {
+routes.add(method: .post, uri: "/api/v1/routes/uniqueRoute", handler: {
 	request, response in
 
 	let routee = Routess()

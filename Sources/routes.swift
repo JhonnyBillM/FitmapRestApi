@@ -158,7 +158,7 @@ public class Routess {
 
     func fetchRouteData(_ request: HTTPRequest){
         _ = mysql.connect()
-        let idRoute = request.param(name: "idRoute")
+        let idRoute = Int(request.param(name: "idRoute"))
         let query = "SELECT name, time, rating, discipline FROM ROUTE WHERE idroute= '\(idRoute)'"
         _ = mysql.query(statement: query)
         print(query)
