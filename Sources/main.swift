@@ -99,22 +99,6 @@ routes.add(method: .get, uri: "/api/v1/routes", handler: {
 	response.completed()
 	}
 )
-// Adding a route to handle the POST people add URL, with post body params
-routes.add(method: .post, uri: "/api/v1/routesUnique", handler: {
-	request, response in
-
-	//let people = People()
-	let routee = Routess()
-
-	// Setting the response content type explicitly to application/json
-	response.setHeader(.contentType, value: "application/json")
-
-	// // Adding a new "person", passing the complete HTTPRequest object to the function.
-	response.appendBody(string: routee.add(request))
-	// Signalling that the request is completed
-	response.completed()
-	}
-)
 
 // Adding a route to handle the POST people add URL, with post body params
 routes.add(method: .post, uri: "/api/v1/routes", handler: {
@@ -208,7 +192,7 @@ routes.add(method: .post, uri: "/api/v1/points", handler: {
 server.addRoutes(routes)
 
 // Set a listen port of 8181
-server.serverPort = 8181
+server.serverPort = 80
 
 do {
 	// Launch the HTTP server.

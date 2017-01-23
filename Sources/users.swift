@@ -3,7 +3,7 @@ import MySQL
 
 public class Users {
   //Database credentials
-    let testHost = "0.0.0.0"
+    let testHost = "127.0.0.1"
     let testUser = "root"
     let testPassword = "fitmap"
     let testDB = "fitmap"

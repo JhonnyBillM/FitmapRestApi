@@ -3,9 +3,9 @@ import MySQL
 
 public class Routess {
   //Database credentials
-    let testHost = "0.0.0.0"
-    let testUser = ""
-    let testPassword = ""
+    let testHost = "127.0.0.1"
+    let testUser = "root"
+    let testPassword = "fitmap"
     let testDB = "fitmap"
     var mysql: MySQL!
     
@@ -43,7 +43,7 @@ public class Routess {
 		)
 				do{
 			_ = mysql.connect()
-		let query = "INSERT INTO user (idUser, name, time, rating, comment, discipline) VALUES('\(new.idUser)','\(new.name)','\(new.time)','\(new.rating)','\(new.comment)', '\(new.discipline)')"
+		let query = "INSERT INTO route (iduser, name, time, rating, comment, discipline) VALUES(\(new.idUser),'\(new.name)',\(new.time),\(new.rating),'\(new.comment)', '\(new.discipline)')"
 
 		 _ = mysql.query(statement: query)
 		print(query)
