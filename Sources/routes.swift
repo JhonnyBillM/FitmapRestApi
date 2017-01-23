@@ -13,7 +13,7 @@ public class Routess {
 	// Container for array of type Person
 	var data = [Route]()
     var dataID = [Int]()
-    var info = String()
+    var info = [String]()
     var that = ""
 
 	// Populating with a mock data object
@@ -42,7 +42,7 @@ public class Routess {
     }
 
     public func giveMeThatInfo() -> String{
-        return info
+        return singleTOTOString()
     }
 
 	// Accepts the HTTPRequest object and adds a new Person from post params.
@@ -186,6 +186,18 @@ public class Routess {
     }
 
 	// Convenient encoding method that returns a string from JSON objects.
+    private func singleTOTOString() -> String{
+                var out = [String]()
+
+        for m in self.info {
+            do {
+                out.append(try m.jsonEncodedString())
+            } catch {
+                print(error)
+            }
+        }
+        return "[\(out.joined(separator: ","))]"
+    }
     private func singleToString() -> String{
         var out = [String]()
 
