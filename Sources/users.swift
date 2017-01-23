@@ -6,7 +6,7 @@ public class Users {
     let testHost = "127.0.0.1"
     let testUser = "root"
     let testPassword = "fitmap123*1"
-    let testDB = "fitmap"
+    let testDB = "fitmap2"
     var mysql: MySQL!
     
   
