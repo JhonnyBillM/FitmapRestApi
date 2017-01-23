@@ -54,7 +54,7 @@ public class Routess {
 				do{
 			_ = mysql.connect()
 		let query = "INSERT INTO ROUTE (iduser, name, time, rating, comment, discipline) VALUES(\(new.idUser),'\(new.name)',\(new.time),\(new.rating),'\(new.comment)', '\(new.discipline)')"
-
+        print(query)
 		 _ = mysql.query(statement: query)
 		print(query)
 		data.append(new)

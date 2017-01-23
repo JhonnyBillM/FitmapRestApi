@@ -1,13 +1,13 @@
-﻿# ************************************************************
+# ************************************************************
 # Sequel Pro SQL dump
 # Version 4541
 #
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# Host: 0.0.0.0 (MySQL 5.7.17)
+# Host: 127.0.0.1 (MySQL 5.7.17)
 # Database: fitmap
-# Generation Time: 2017-01-16 02:45:53 +0000
+# Generation Time: 2017-01-23 18:32:51 +0000
 # ************************************************************
 
 
@@ -55,6 +55,32 @@ CREATE TABLE `POINTS` (
   CONSTRAINT `ROUTEPOINT` FOREIGN KEY (`idroute`) REFERENCES `ROUTE` (`idroute`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `POINTS` WRITE;
+/*!40000 ALTER TABLE `POINTS` DISABLE KEYS */;
+
+INSERT INTO `POINTS` (`idpoint`, `idroute`, `longitude`, `latitude`)
+VALUES
+	(83,44,-122.29907018,37.48050104),
+	(84,44,-122.29901151,37.48081016),
+	(85,44,-122.29896314,37.48112252),
+	(86,45,-122.33350505,37.50401014),
+	(87,45,-122.33381577,37.50420426),
+	(88,46,-122.40094584,37.57613294),
+	(89,46,-122.40106956,37.57643435),
+	(90,46,-122.40144256,37.57731483),
+	(91,46,-122.40131859,37.57701769),
+	(92,46,-122.40119688,37.57672629),
+	(93,46,-122.40156585,37.57760761),
+	(94,46,-122.40167993,37.57788895),
+	(95,47,-122.42624687,37.62110118),
+	(96,47,-122.42696981,37.62223282),
+	(97,47,-122.42661417,37.62166536),
+	(98,47,-122.42643085,37.62138398),
+	(99,47,-122.42715597,37.62251265),
+	(100,47,-122.4267834,37.62194662);
+
+/*!40000 ALTER TABLE `POINTS` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table REVIEW
@@ -92,9 +118,21 @@ CREATE TABLE `ROUTE` (
   `discipline` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`idroute`),
   KEY `ROUTEUSER` (`iduser`),
-  CONSTRAINT `ROUTEUSER` FOREIGN KEY (`iduser`) REFERENCES `USUARIO` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `ROUTEUSER` FOREIGN KEY (`iduser`) REFERENCES `USER` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `ROUTE` WRITE;
+/*!40000 ALTER TABLE `ROUTE` DISABLE KEYS */;
+
+INSERT INTO `ROUTE` (`idroute`, `iduser`, `name`, `time`, `rating`, `comment`, `discipline`)
+VALUES
+	(44,58,'asd',2921406097,2,'asd',''),
+	(45,58,'a',1262049524,2,'a',''),
+	(46,58,'DAS',6686920685,2,'asd',''),
+	(47,58,'sadasdsa',5517880760,2,'asd','');
+
+/*!40000 ALTER TABLE `ROUTE` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table USER
@@ -109,6 +147,18 @@ CREATE TABLE `USER` (
   PRIMARY KEY (`iduser`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `USER` WRITE;
+/*!40000 ALTER TABLE `USER` DISABLE KEYS */;
+
+INSERT INTO `USER` (`iduser`, `name`, `lastname`)
+VALUES
+	(58,'Rafael','Suazo'),
+	(59,'Rafael','Suazo'),
+	(60,'Rafael','Suazo'),
+	(61,'Rafael','Suazo');
+
+/*!40000 ALTER TABLE `USER` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
