@@ -42,7 +42,7 @@ public class Histories {
 		)
 				do{
 			_ = mysql.connect()
-		let query = "INSERT INTO user (name,lastName) VALUES('','')"
+		let query = "INSERT INTO USER (name,lastName) VALUES('','')"
 
 		 _ = mysql.query(statement: query)
 		print(query)

@@ -42,7 +42,7 @@ public class Users {
 		)
 		do{
 					_ = mysql.connect()
-		let query = "INSERT INTO user (name,lastName) VALUES('\(new.firstName)','\(new.lastName)')"
+		let query = "INSERT INTO USER (name,lastName) VALUES('\(new.firstName)','\(new.lastName)')"
 
 		 _ = mysql.query(statement: query)
 		print(query)
@@ -54,7 +54,7 @@ public class Users {
 		
         _ = mysql.connect()
         
-        let query = "SELECT iduser FROM user WHERE name= '\(new.firstName)' AND lastname = '\(new.lastName)' ORDER BY iduser DESC LIMIT 1"
+        let query = "SELECT iduser FROM USER WHERE name= '\(new.firstName)' AND lastname = '\(new.lastName)' ORDER BY iduser DESC LIMIT 1"
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()
@@ -68,7 +68,7 @@ public class Users {
     func fetchUserFirstTime() {
         _ = mysql.connect()
         
-        let query = "SELECT iduser, name, lastname FROM user ORDER BY iduser, name, lastname DESC LIMIT 1"
+        let query = "SELECT iduser, name, lastname FROM USER ORDER BY iduser, name, lastname DESC LIMIT 1"
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()

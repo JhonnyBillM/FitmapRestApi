@@ -53,7 +53,7 @@ public class Routess {
 		)
 				do{
 			_ = mysql.connect()
-		let query = "INSERT INTO route (iduser, name, time, rating, comment, discipline) VALUES(\(new.idUser),'\(new.name)',\(new.time),\(new.rating),'\(new.comment)', '\(new.discipline)')"
+		let query = "INSERT INTO ROUTE (iduser, name, time, rating, comment, discipline) VALUES(\(new.idUser),'\(new.name)',\(new.time),\(new.rating),'\(new.comment)', '\(new.discipline)')"
 
 		 _ = mysql.query(statement: query)
 		print(query)
@@ -69,7 +69,7 @@ public class Routess {
 
         _ = mysql.connect()
         
-        let query = "SELECT idroute FROM route WHERE iduser= '\(iduser)' ORDER BY idroute DESC LIMIT 1"
+        let query = "SELECT idroute FROM ROUTE WHERE iduser= '\(iduser)' ORDER BY idroute DESC LIMIT 1"
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()
@@ -82,7 +82,7 @@ public class Routess {
     func fetchRoutes() {
         _ = mysql.connect()
         
-        let query = "SELECT idroute, iduser, name, time, rating, comment, discipline FROM route"
+        let query = "SELECT idroute, iduser, name, time, rating, comment, discipline FROM ROUTE"
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()
@@ -112,7 +112,7 @@ public class Routess {
     func fetchRoutesID() {
         _ = mysql.connect()
         
-        let query = "SELECT idroute FROM route"
+        let query = "SELECT idroute FROM ROUTE"
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()
@@ -132,7 +132,7 @@ public class Routess {
     func fetchRouteUnique(_ request: HTTPRequest){
     	_ = mysql.connect()
         let iduser = request.param(name: "idUser")!
-        let query = "SELECT idroute FROM route WHERE iduser= '\(iduser)' ORDER BY idroute DESC LIMIT 1"
+        let query = "SELECT idroute FROM ROUTE WHERE iduser= '\(iduser)' ORDER BY idroute DESC LIMIT 1"
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()

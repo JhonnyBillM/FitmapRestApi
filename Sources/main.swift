@@ -94,7 +94,7 @@ routes.add(method: .get, uri: "/api/v1/routes", handler: {
 	// Setting the response content type explicitly to application/json
 	response.setHeader(.contentType, value: "application/json")
 	// Setting the body response to the JSON list generated
-	response.appendBody(string: routee.list())
+	response.appendBody(string: routee.giveMeOneRoute())
 	// Signalling that the request is completed
 	response.completed()
 	}

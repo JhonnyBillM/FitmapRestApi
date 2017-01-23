@@ -47,7 +47,7 @@ public class Points {
 
 		do{
 			_ = mysql.connect()
-		let query = "INSERT INTO points (idroute,longitude,latitude) VALUES(\(new.idRoute),\(new.longitude),\(new.latitude))"
+		let query = "INSERT INTO POINTS (idroute,longitude,latitude) VALUES(\(new.idRoute),\(new.longitude),\(new.latitude))"
 
 		 _ = mysql.query(statement: query)
 		print(query)
@@ -66,7 +66,7 @@ public class Points {
     	let idRoute = request.param(name: "idRoute")!
         _ = mysql.connect()
         
-        let query = "SELECT longitude, latitude FROM points WHERE idroute = '\(idRoute)'ORDER BY idpoint"
+        let query = "SELECT longitude, latitude FROM POINTS WHERE idroute = '\(idRoute)'ORDER BY idpoint"
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()
