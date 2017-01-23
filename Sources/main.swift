@@ -100,6 +100,20 @@ routes.add(method: .get, uri: "/api/v1/routes", handler: {
 	}
 )
 
+routes.add(method: .get, uri: "/api/v1/routes/unique", handler: {
+	request, response in
+
+	let routee = Routess()
+	routee.fetchRouteUnique(request)
+	// Setting the response content type explicitly to application/json
+	response.setHeader(.contentType, value: "application/json")
+	// Setting the body response to the JSON list generated
+	response.appendBody(string: routee.giveMeOneRoute())
+	// Signalling that the request is completed
+	response.completed()
+	}
+)
+
 // Adding a route to handle the POST people add URL, with post body params
 routes.add(method: .post, uri: "/api/v1/routes", handler: {
 	request, response in

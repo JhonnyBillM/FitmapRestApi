@@ -3,9 +3,9 @@ import MySQL
 
 public class Points {
   //Database credentials
-    let testHost = "0.0.0.0"
-    let testUser = ""
-    let testPassword = ""
+    let testHost = "127.0.0.1"
+    let testUser = "root"
+    let testPassword = "fitmap"
     let testDB = "fitmap"
     var mysql: MySQL!
     
@@ -43,7 +43,7 @@ public class Points {
 
 		do{
 			_ = mysql.connect()
-		let query = "INSERT INTO user (name,lastName) VALUES('','')"
+		let query = "INSERT INTO points (idroute,longitude,latitude) VALUES(\(new.idRoute),\(new.longitude),\(new.latitude))"
 
 		 _ = mysql.query(statement: query)
 		print(query)
@@ -53,8 +53,6 @@ public class Points {
 		defer {
           mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
         }
-		
-
 		data.append(new)
 		return toString()
 	}
@@ -63,7 +61,7 @@ public class Points {
     func fetchPoints() {
         _ = mysql.connect()
         
-        let query = "SELECT first_name, last_name, email, employee_id FROM employees"
+        let query = "SELECT idpoint, idroute, longitude, latitude FROM points ORDER BY idpoint"
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()

@@ -12,6 +12,7 @@ public class Routess {
   
 	// Container for array of type Person
 	var data = [Route]()
+    var that = ""
 
 	// Populating with a mock data object
 	init(){
@@ -31,9 +32,14 @@ public class Routess {
 		return toString()
 	}
 
+    public func giveMeOneRoute() -> String{
+        return that
+    }
+
 	// Accepts the HTTPRequest object and adds a new Person from post params.
 	public func add(_ request: HTTPRequest) -> String {
-		let new = Route(
+		let iduser = request.param(name: "idUser")!
+        let new = Route(
 			idUser: request.param(name: "idUser")!,
 			name: request.param(name: "name")!,
 			time: request.param(name: "time")!,
@@ -54,7 +60,19 @@ public class Routess {
           mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
         }
 
-		return toString()
+
+
+
+        _ = mysql.connect()
+        
+        let query = "SELECT idroute FROM route WHERE iduser= '\(iduser)' ORDER BY idroute DESC LIMIT 1"
+        _ = mysql.query(statement: query)
+        print(query)
+        let results = mysql.storeResults()
+        results?.forEachRow(callback: {(row) in
+            that = row[0] ?? ""})
+
+		return that
 	}
 
     func fetchRoutes() {
@@ -89,28 +107,16 @@ public class Routess {
 
     func fetchRouteUnique(_ request: HTTPRequest){
     	_ = mysql.connect()
-        let routeid = request.param(name: "idRoute")!
-        let query = "SELECT idroute, iduser, name, time, rating, comment, discipline FROM route WHERE routeid = '\(routeid)'"
+        let iduser = request.param(name: "idUser")!
+        let query = "SELECT idroute FROM route WHERE iduser= '\(iduser)' ORDER BY idroute DESC LIMIT 1"
         _ = mysql.query(statement: query)
         print(query)
         let results = mysql.storeResults()
+
+        results?.forEachRow(callback: {(row) in
+            that = row[0] ?? ""})
+        //that = results
         
-        results?.forEachRow(callback: { (row) in
-
-			let idRoute = row[0] ?? ""
-            let idUser = row[1] ?? ""
-            let name = row[2] ?? ""
-            let time = row[3] ?? ""
-            let rating = row[4] ?? ""
-            let comment = row[5] ?? ""
-            let discipline = row[6] ?? ""
-
-
-            
-            let route = Route(idUser: idUser, name: name, time: time, rating: rating, comment: comment, discipline: discipline)
-            route.idRoute = idRoute
-            data.append(route)
-        })
         
         defer {
           mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
