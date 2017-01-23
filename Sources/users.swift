@@ -12,7 +12,7 @@ public class Users {
   
 	// Container for array of type Person
 	var data = [User]()
-
+	var that = ""
 	// Populating with a mock data object
 	init(){
         mysql = MySQL() // Create an instance of MySQL to work with
@@ -31,7 +31,9 @@ public class Users {
 	public func list() -> String {
 		return toString()
 	}
-
+	public func giveMeOneUserID() -> String{
+		return that
+	}
 	// Accepts the HTTPRequest object and adds a new Person from post params.
 	public func add(_ request: HTTPRequest) -> String {
 		let new = User(
@@ -50,8 +52,17 @@ public class Users {
           mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
         }
 		
+        _ = mysql.connect()
+        
+        let query = "SELECT iduser FROM user WHERE name= '\(new.firstName)' AND lastname = '\(new.lastName)' ORDER BY iduser DESC LIMIT 1"
+        _ = mysql.query(statement: query)
+        print(query)
+        let results = mysql.storeResults()
+        results?.forEachRow(callback: {(row) in
+            that = row[0] ?? ""})
+
 		data.append(new)
-		return toString()
+		return that
 	}
 
     func fetchUserFirstTime() {
